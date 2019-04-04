@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+echo -n "Enter Ambari server name : "
+read "server"
+AMBARI_SERVER=$server
+echo -n "Enter Ambari User Name: "
+read "user"
+echo -n "Enter Password for $user : "
+read -s "pwd"
+USERNAME=$user
+PASSWORD=$pwd
+if [ -e "~/.ambari_login" ]; then
+    . ~/.ambari_login
+fi
+
+cluster_name=$(curl -iv -k -u $USERNAME:$PASSWORD -H 'X-Requested-By: ambari'  https://$AMBARI_SERVER/api/v1/clusters/ | sed -n 's/.*"cluster_name" : "\([^\"]*\)".*/\1/p')
+if [ -z "$cluster_name" ]; then
+    exit
+fi
+echo -e "\nYour cluster name is: $cluster_name"
+running_services=$(curl -iv -k -u $USERNAME:$PASSWORD -H 'X-Requested-By: ambari' -X GET https://$AMBARI_HOST/api/v1/clusters/$cluster_name/services?fields=ServiceInfo/service_name | sed -n 's/.*"service_name" : "\([^\"]*\)".*/\1/p')
+if [ -z "$running_services" ]; then
+    exit
+fi
+echo "There are following running services :
+$running_services"
+
+post_data=
+for s in $running_services; do
+    if [ "$s" == "ZOOKEEPER" ]; then
+        post_data="{\"RequestInfo\":{\"context\":\"$s Service Check\",\"command\":\"${s}_QUORUM_SERVICE_CHECK\"},\"Requests/resource_filters\":[{\"service_name\":\"$s\"}]}"
+
+    else
+        post_data="{\"RequestInfo\":{\"context\":\"$s Service Check\",\"command\":\"${s}_SERVICE_CHECK\"},\"Requests/resource_filters\":[{\"service_name\":\"$s\"}]}"
+    fi
+    output=$(curl -iv -k -u $LOGIN:$PASSWORD -H 'X-Requested-By: ambari' -X POST --data "$post_data"  https://$AMBARI_HOST/api/v1/clusters/$cluster_name/requests)
+
+    Res=$(echo $output | sed 's/\"href\"://g' | sed 's[,/"]//g')
+    COMPLETE=0;
+
+   if [[ $(echo $Res | wc -c) -gt 5 ]]
+     then
+      while [[ $(echo "$COMPLETE<100" | bc) -eq 1 ]]
+     do
+       COMPLETE=$(curl -iv -k -u $USERNAME:$PASSWORD -H 'X-Requested-By: ambari' $Res |grep progress_percent | sed 's/progress_percent//g' | sed 's/[:,\"]//g')
+
+       sleep 20
+      done
+  fi
+done
