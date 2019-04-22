@@ -1,0 +1,1510 @@
+login as: hdpuser
+Authenticating with public key "hdpuser"
+Passphrase for key "hdpuser":
+[hdpuser@hdp-node-1 ~]$ sudo passwd
+Changing password for user root.
+New password:
+BAD PASSWORD: The password is a palindrome
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[hdpuser@hdp-node-1 ~]$ su -
+Password:
+[root@hdp-node-1 ~]# clear
+[root@hdp-node-1 ~]# service iptables status
+Redirecting to /bin/systemctl status iptables.service
+Unit iptables.service could not be found.
+[root@hdp-node-1 ~]# service iptables stop
+Redirecting to /bin/systemctl stop iptables.service
+Failed to stop iptables.service: Unit iptables.service not loaded.
+[root@hdp-node-1 ~]# chconfig iptables off
+-bash: chconfig: command not found
+[root@hdp-node-1 ~]# file=/etc/ssh/sshd_config
+[root@hdp-node-1 ~]# cp -p $file $file.old && awk ' $1=="PermitRootLogin" {$2="yes"} $1=="PasswordAuthentication" {$2="yes"} $1=="#PubkeyAuthentication" {$1="PubkeyAuthentication"} {print} ' $file.old > $file
+[root@hdp-node-1 ~]# service sshd restart
+Redirecting to /bin/systemctl restart sshd.service
+[root@hdp-node-1 ~]# ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Created directory '/root/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:HhBw2GI2fEv+3ssuCi7mHR7Oow3/bLVDPUJSPTdiAVI root@hdp-node-1
+The key's randomart image is:
++---[RSA 2048]----+
+|   ..++.Eo..     |
+|    B.+o. = o    |
+|   o *.o . + .   |
+|      +..        |
+|       +S.       |
+|       .=.o      |
+|  . +  +.+ .     |
+|  oX.=. =..      |
+| oooO++. ++.     |
++----[SHA256]-----+
+[root@hdp-node-1 ~]# ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-2
+/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host 'hdp-node-2 (10.154.0.5)' can't be established.
+ECDSA key fingerprint is SHA256:VB3GWABqIVy1Sg++jxQoFPp/hTJsAtmDu077RxAPlmI.
+ECDSA key fingerprint is MD5:bd:c3:f7:61:74:35:db:56:e1:0c:42:d4:b1:f4:90:da.
+Are you sure you want to continue connecting (yes/no)? yes
+/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@hdp-node-2's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@hdp-node-2'"
+and check to make sure that only the key(s) you wanted were added.
+
+[root@hdp-node-1 ~]# ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-1
+/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/root/.ssh/id_rsa.pub"
+The authenticity of host 'hdp-node-1 (10.154.0.4)' can't be established.
+ECDSA key fingerprint is SHA256:AZaxwGxw7za+zHuAHSrGVnLJBschFlrSGqFwpBiIhSI.
+ECDSA key fingerprint is MD5:d7:4a:18:64:c0:52:25:ba:8a:17:6d:e1:19:e9:7c:d5.
+Are you sure you want to continue connecting (yes/no)? yes
+/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+root@hdp-node-1's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'root@hdp-node-1'"
+and check to make sure that only the key(s) you wanted were added.
+
+[root@hdp-node-1 ~]# chmod -R 777  ~/.ssh/
+[root@hdp-node-1 ~]# yum -y install java-1.8.0-openjdk
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/x86_64/metalink                                                                                                                                                  |  17 kB  00:00:00
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+base                                                                                                                                                                  | 3.6 kB  00:00:00
+epel                                                                                                                                                                  | 4.7 kB  00:00:00
+extras                                                                                                                                                                | 3.4 kB  00:00:00
+google-cloud-compute/signature                                                                                                                                        |  454 B  00:00:00
+google-cloud-compute/signature                                                                                                                                        | 1.8 kB  00:00:00 !!!
+google-cloud-sdk/signature                                                                                                                                            |  454 B  00:00:00
+google-cloud-sdk/signature                                                                                                                                            | 1.4 kB  00:00:00 !!!
+updates                                                                                                                                                               | 3.4 kB  00:00:00
+(1/10): epel/x86_64/group_gz                                                                                                                                          |  88 kB  00:00:00
+(2/10): epel/x86_64/updateinfo                                                                                                                                        | 988 kB  00:00:00
+(3/10): base/7/x86_64/group_gz                                                                                                                                        | 166 kB  00:00:01
+(4/10): google-cloud-compute/updateinfo                                                                                                                               | 1.1 kB  00:00:00
+(5/10): epel/x86_64/primary_db                                                                                                                                        | 6.7 MB  00:00:00
+(6/10): google-cloud-compute/primary                                                                                                                                  | 3.6 kB  00:00:00
+(7/10): google-cloud-sdk/primary                                                                                                                                      |  91 kB  00:00:00
+(8/10): extras/7/x86_64/primary_db                                                                                                                                    | 188 kB  00:00:00
+(9/10): updates/7/x86_64/primary_db                                                                                                                                   | 3.4 MB  00:00:01
+(10/10): base/7/x86_64/primary_db                                                                                                                                     | 6.0 MB  00:00:03
+google-cloud-compute                                                                                                                                                                   10/10
+google-cloud-sdk                                                                                                                                                                     627/627
+Resolving Dependencies
+--> Running transaction check
+---> Package java-1.8.0-openjdk.x86_64 1:1.8.0.212.b04-0.el7_6 will be installed
+--> Processing Dependency: java-1.8.0-openjdk-headless(x86-64) = 1:1.8.0.212.b04-0.el7_6 for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: xorg-x11-fonts-Type1 for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjvm.so(SUNWprivate_1.1)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjpeg.so.62(LIBJPEG_6.2)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjava.so(SUNWprivate_1.1)(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libXcomposite(x86-64) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: gtk2(x86-64) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: fontconfig(x86-64) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjvm.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjpeg.so.62()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libjava.so()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libgif.so.4()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libXtst.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libXrender.so.1()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libXi.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libXext.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: libX11.so.6()(64bit) for package: 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64
+--> Running transaction check
+---> Package fontconfig.x86_64 0:2.13.0-4.3.el7 will be installed
+--> Processing Dependency: fontpackages-filesystem for package: fontconfig-2.13.0-4.3.el7.x86_64
+--> Processing Dependency: dejavu-sans-fonts for package: fontconfig-2.13.0-4.3.el7.x86_64
+---> Package giflib.x86_64 0:4.1.6-9.el7 will be installed
+--> Processing Dependency: libSM.so.6()(64bit) for package: giflib-4.1.6-9.el7.x86_64
+--> Processing Dependency: libICE.so.6()(64bit) for package: giflib-4.1.6-9.el7.x86_64
+---> Package gtk2.x86_64 0:2.24.31-1.el7 will be installed
+--> Processing Dependency: pango >= 1.20.0-1 for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libtiff >= 3.6.1 for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXrandr >= 1.2.99.4-2 for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: atk >= 1.29.4-2 for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: hicolor-icon-theme for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: gtk-update-icon-cache for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libpangoft2-1.0.so.0()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libpangocairo-1.0.so.0()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libpango-1.0.so.0()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libgdk_pixbuf-2.0.so.0()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libcups.so.2()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libcairo.so.2()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libatk-1.0.so.0()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXrandr.so.2()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXinerama.so.1()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXfixes.so.3()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXdamage.so.1()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+--> Processing Dependency: libXcursor.so.1()(64bit) for package: gtk2-2.24.31-1.el7.x86_64
+---> Package java-1.8.0-openjdk-headless.x86_64 1:1.8.0.212.b04-0.el7_6 will be installed
+--> Processing Dependency: tzdata-java >= 2015d for package: 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: copy-jdk-configs >= 3.3 for package: 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: pcsc-lite-libs(x86-64) for package: 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: lksctp-tools(x86-64) for package: 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64
+--> Processing Dependency: jpackage-utils for package: 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64
+---> Package libX11.x86_64 0:1.6.5-2.el7 will be installed
+--> Processing Dependency: libX11-common >= 1.6.5-2.el7 for package: libX11-1.6.5-2.el7.x86_64
+--> Processing Dependency: libxcb.so.1()(64bit) for package: libX11-1.6.5-2.el7.x86_64
+---> Package libXcomposite.x86_64 0:0.4.4-4.1.el7 will be installed
+---> Package libXext.x86_64 0:1.3.3-3.el7 will be installed
+---> Package libXi.x86_64 0:1.7.9-1.el7 will be installed
+---> Package libXrender.x86_64 0:0.9.10-1.el7 will be installed
+---> Package libXtst.x86_64 0:1.2.3-1.el7 will be installed
+---> Package libjpeg-turbo.x86_64 0:1.2.90-6.el7 will be installed
+---> Package xorg-x11-fonts-Type1.noarch 0:7.5-9.el7 will be installed
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: ttmkfdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Processing Dependency: mkfontdir for package: xorg-x11-fonts-Type1-7.5-9.el7.noarch
+--> Running transaction check
+---> Package atk.x86_64 0:2.28.1-1.el7 will be installed
+---> Package cairo.x86_64 0:1.15.12-3.el7 will be installed
+--> Processing Dependency: libpixman-1.so.0()(64bit) for package: cairo-1.15.12-3.el7.x86_64
+--> Processing Dependency: libGL.so.1()(64bit) for package: cairo-1.15.12-3.el7.x86_64
+--> Processing Dependency: libEGL.so.1()(64bit) for package: cairo-1.15.12-3.el7.x86_64
+---> Package copy-jdk-configs.noarch 0:3.3-10.el7_5 will be installed
+---> Package cups-libs.x86_64 1:1.6.3-35.el7 will be installed
+--> Processing Dependency: libavahi-common.so.3()(64bit) for package: 1:cups-libs-1.6.3-35.el7.x86_64
+--> Processing Dependency: libavahi-client.so.3()(64bit) for package: 1:cups-libs-1.6.3-35.el7.x86_64
+---> Package dejavu-sans-fonts.noarch 0:2.33-6.el7 will be installed
+--> Processing Dependency: dejavu-fonts-common = 2.33-6.el7 for package: dejavu-sans-fonts-2.33-6.el7.noarch
+---> Package fontpackages-filesystem.noarch 0:1.44-8.el7 will be installed
+---> Package gdk-pixbuf2.x86_64 0:2.36.12-3.el7 will be installed
+--> Processing Dependency: libjasper.so.1()(64bit) for package: gdk-pixbuf2-2.36.12-3.el7.x86_64
+---> Package gtk-update-icon-cache.x86_64 0:3.22.30-3.el7 will be installed
+---> Package hicolor-icon-theme.noarch 0:0.12-7.el7 will be installed
+---> Package javapackages-tools.noarch 0:3.4.1-11.el7 will be installed
+--> Processing Dependency: python-javapackages = 3.4.1-11.el7 for package: javapackages-tools-3.4.1-11.el7.noarch
+--> Processing Dependency: libxslt for package: javapackages-tools-3.4.1-11.el7.noarch
+---> Package libICE.x86_64 0:1.0.9-9.el7 will be installed
+---> Package libSM.x86_64 0:1.2.2-2.el7 will be installed
+---> Package libX11-common.noarch 0:1.6.5-2.el7 will be installed
+---> Package libXcursor.x86_64 0:1.1.15-1.el7 will be installed
+---> Package libXdamage.x86_64 0:1.1.4-4.1.el7 will be installed
+---> Package libXfixes.x86_64 0:5.0.3-1.el7 will be installed
+---> Package libXinerama.x86_64 0:1.1.3-2.1.el7 will be installed
+---> Package libXrandr.x86_64 0:1.5.1-2.el7 will be installed
+---> Package libtiff.x86_64 0:4.0.3-27.el7_3 will be installed
+--> Processing Dependency: libjbig.so.2.0()(64bit) for package: libtiff-4.0.3-27.el7_3.x86_64
+---> Package libxcb.x86_64 0:1.13-1.el7 will be installed
+--> Processing Dependency: libXau.so.6()(64bit) for package: libxcb-1.13-1.el7.x86_64
+---> Package lksctp-tools.x86_64 0:1.0.17-2.el7 will be installed
+---> Package pango.x86_64 0:1.42.4-1.el7 will be installed
+--> Processing Dependency: libthai(x86-64) >= 0.1.9 for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libXft(x86-64) >= 2.0.0 for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: harfbuzz(x86-64) >= 1.4.2 for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: fribidi(x86-64) >= 1.0 for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libthai.so.0(LIBTHAI_0.1)(64bit) for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libthai.so.0()(64bit) for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libharfbuzz.so.0()(64bit) for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libfribidi.so.0()(64bit) for package: pango-1.42.4-1.el7.x86_64
+--> Processing Dependency: libXft.so.2()(64bit) for package: pango-1.42.4-1.el7.x86_64
+---> Package pcsc-lite-libs.x86_64 0:1.8.8-8.el7 will be installed
+---> Package ttmkfdir.x86_64 0:3.0.9-42.el7 will be installed
+---> Package tzdata-java.noarch 0:2019a-1.el7 will be installed
+---> Package xorg-x11-font-utils.x86_64 1:7.5-21.el7 will be installed
+--> Processing Dependency: libfontenc.so.1()(64bit) for package: 1:xorg-x11-font-utils-7.5-21.el7.x86_64
+--> Running transaction check
+---> Package avahi-libs.x86_64 0:0.6.31-19.el7 will be installed
+---> Package dejavu-fonts-common.noarch 0:2.33-6.el7 will be installed
+---> Package fribidi.x86_64 0:1.0.2-1.el7 will be installed
+---> Package harfbuzz.x86_64 0:1.7.5-2.el7 will be installed
+--> Processing Dependency: libgraphite2.so.3()(64bit) for package: harfbuzz-1.7.5-2.el7.x86_64
+---> Package jasper-libs.x86_64 0:1.900.1-33.el7 will be installed
+---> Package jbigkit-libs.x86_64 0:2.0-11.el7 will be installed
+---> Package libXau.x86_64 0:1.0.8-2.1.el7 will be installed
+---> Package libXft.x86_64 0:2.3.2-2.el7 will be installed
+---> Package libfontenc.x86_64 0:1.1.3-3.el7 will be installed
+---> Package libglvnd-egl.x86_64 1:1.0.1-0.8.git5baa1e5.el7 will be installed
+--> Processing Dependency: libglvnd(x86-64) = 1:1.0.1-0.8.git5baa1e5.el7 for package: 1:libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
+--> Processing Dependency: mesa-libEGL(x86-64) >= 13.0.4-1 for package: 1:libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
+--> Processing Dependency: libGLdispatch.so.0()(64bit) for package: 1:libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64
+---> Package libglvnd-glx.x86_64 1:1.0.1-0.8.git5baa1e5.el7 will be installed
+--> Processing Dependency: mesa-libGL(x86-64) >= 13.0.4-1 for package: 1:libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64
+---> Package libthai.x86_64 0:0.1.14-9.el7 will be installed
+---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed
+---> Package pixman.x86_64 0:0.34.0-1.el7 will be installed
+---> Package python-javapackages.noarch 0:3.4.1-11.el7 will be installed
+--> Processing Dependency: python-lxml for package: python-javapackages-3.4.1-11.el7.noarch
+--> Running transaction check
+---> Package graphite2.x86_64 0:1.3.10-1.el7_3 will be installed
+---> Package libglvnd.x86_64 1:1.0.1-0.8.git5baa1e5.el7 will be installed
+---> Package mesa-libEGL.x86_64 0:18.0.5-4.el7_6 will be installed
+--> Processing Dependency: mesa-libgbm = 18.0.5-4.el7_6 for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+--> Processing Dependency: libxshmfence.so.1()(64bit) for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+--> Processing Dependency: libwayland-server.so.0()(64bit) for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+--> Processing Dependency: libwayland-client.so.0()(64bit) for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+--> Processing Dependency: libglapi.so.0()(64bit) for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+--> Processing Dependency: libgbm.so.1()(64bit) for package: mesa-libEGL-18.0.5-4.el7_6.x86_64
+---> Package mesa-libGL.x86_64 0:18.0.5-4.el7_6 will be installed
+--> Processing Dependency: libXxf86vm.so.1()(64bit) for package: mesa-libGL-18.0.5-4.el7_6.x86_64
+---> Package python-lxml.x86_64 0:3.2.1-4.el7 will be installed
+--> Running transaction check
+---> Package libXxf86vm.x86_64 0:1.1.4-1.el7 will be installed
+---> Package libwayland-client.x86_64 0:1.15.0-1.el7 will be installed
+---> Package libwayland-server.x86_64 0:1.15.0-1.el7 will be installed
+---> Package libxshmfence.x86_64 0:1.2-1.el7 will be installed
+---> Package mesa-libgbm.x86_64 0:18.0.5-4.el7_6 will be installed
+---> Package mesa-libglapi.x86_64 0:18.0.5-4.el7_6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================================================================
+ Package                                                 Arch                               Version                                                Repository                           Size
+=============================================================================================================================================================================================
+Installing:
+ java-1.8.0-openjdk                                      x86_64                             1:1.8.0.212.b04-0.el7_6                                updates                             270 k
+Installing for dependencies:
+ atk                                                     x86_64                             2.28.1-1.el7                                           base                                263 k
+ avahi-libs                                              x86_64                             0.6.31-19.el7                                          base                                 61 k
+ cairo                                                   x86_64                             1.15.12-3.el7                                          base                                741 k
+ copy-jdk-configs                                        noarch                             3.3-10.el7_5                                           base                                 21 k
+ cups-libs                                               x86_64                             1:1.6.3-35.el7                                         base                                357 k
+ dejavu-fonts-common                                     noarch                             2.33-6.el7                                             base                                 64 k
+ dejavu-sans-fonts                                       noarch                             2.33-6.el7                                             base                                1.4 M
+ fontconfig                                              x86_64                             2.13.0-4.3.el7                                         base                                254 k
+ fontpackages-filesystem                                 noarch                             1.44-8.el7                                             base                                9.9 k
+ fribidi                                                 x86_64                             1.0.2-1.el7                                            base                                 79 k
+ gdk-pixbuf2                                             x86_64                             2.36.12-3.el7                                          base                                570 k
+ giflib                                                  x86_64                             4.1.6-9.el7                                            base                                 40 k
+ graphite2                                               x86_64                             1.3.10-1.el7_3                                         base                                115 k
+ gtk-update-icon-cache                                   x86_64                             3.22.30-3.el7                                          base                                 28 k
+ gtk2                                                    x86_64                             2.24.31-1.el7                                          base                                3.4 M
+ harfbuzz                                                x86_64                             1.7.5-2.el7                                            base                                267 k
+ hicolor-icon-theme                                      noarch                             0.12-7.el7                                             base                                 42 k
+ jasper-libs                                             x86_64                             1.900.1-33.el7                                         base                                150 k
+ java-1.8.0-openjdk-headless                             x86_64                             1:1.8.0.212.b04-0.el7_6                                updates                              32 M
+ javapackages-tools                                      noarch                             3.4.1-11.el7                                           base                                 73 k
+ jbigkit-libs                                            x86_64                             2.0-11.el7                                             base                                 46 k
+ libICE                                                  x86_64                             1.0.9-9.el7                                            base                                 66 k
+ libSM                                                   x86_64                             1.2.2-2.el7                                            base                                 39 k
+ libX11                                                  x86_64                             1.6.5-2.el7                                            base                                606 k
+ libX11-common                                           noarch                             1.6.5-2.el7                                            base                                164 k
+ libXau                                                  x86_64                             1.0.8-2.1.el7                                          base                                 29 k
+ libXcomposite                                           x86_64                             0.4.4-4.1.el7                                          base                                 22 k
+ libXcursor                                              x86_64                             1.1.15-1.el7                                           base                                 30 k
+ libXdamage                                              x86_64                             1.1.4-4.1.el7                                          base                                 20 k
+ libXext                                                 x86_64                             1.3.3-3.el7                                            base                                 39 k
+ libXfixes                                               x86_64                             5.0.3-1.el7                                            base                                 18 k
+ libXft                                                  x86_64                             2.3.2-2.el7                                            base                                 58 k
+ libXi                                                   x86_64                             1.7.9-1.el7                                            base                                 40 k
+ libXinerama                                             x86_64                             1.1.3-2.1.el7                                          base                                 14 k
+ libXrandr                                               x86_64                             1.5.1-2.el7                                            base                                 27 k
+ libXrender                                              x86_64                             0.9.10-1.el7                                           base                                 26 k
+ libXtst                                                 x86_64                             1.2.3-1.el7                                            base                                 20 k
+ libXxf86vm                                              x86_64                             1.1.4-1.el7                                            base                                 18 k
+ libfontenc                                              x86_64                             1.1.3-3.el7                                            base                                 31 k
+ libglvnd                                                x86_64                             1:1.0.1-0.8.git5baa1e5.el7                             base                                 89 k
+ libglvnd-egl                                            x86_64                             1:1.0.1-0.8.git5baa1e5.el7                             base                                 44 k
+ libglvnd-glx                                            x86_64                             1:1.0.1-0.8.git5baa1e5.el7                             base                                125 k
+ libjpeg-turbo                                           x86_64                             1.2.90-6.el7                                           base                                134 k
+ libthai                                                 x86_64                             0.1.14-9.el7                                           base                                187 k
+ libtiff                                                 x86_64                             4.0.3-27.el7_3                                         base                                170 k
+ libwayland-client                                       x86_64                             1.15.0-1.el7                                           base                                 33 k
+ libwayland-server                                       x86_64                             1.15.0-1.el7                                           base                                 39 k
+ libxcb                                                  x86_64                             1.13-1.el7                                             base                                214 k
+ libxshmfence                                            x86_64                             1.2-1.el7                                              base                                7.2 k
+ libxslt                                                 x86_64                             1.1.28-5.el7                                           base                                242 k
+ lksctp-tools                                            x86_64                             1.0.17-2.el7                                           base                                 88 k
+ mesa-libEGL                                             x86_64                             18.0.5-4.el7_6                                         updates                             102 k
+ mesa-libGL                                              x86_64                             18.0.5-4.el7_6                                         updates                             162 k
+ mesa-libgbm                                             x86_64                             18.0.5-4.el7_6                                         updates                              38 k
+ mesa-libglapi                                           x86_64                             18.0.5-4.el7_6                                         updates                              44 k
+ pango                                                   x86_64                             1.42.4-1.el7                                           base                                280 k
+ pcsc-lite-libs                                          x86_64                             1.8.8-8.el7                                            base                                 34 k
+ pixman                                                  x86_64                             0.34.0-1.el7                                           base                                248 k
+ python-javapackages                                     noarch                             3.4.1-11.el7                                           base                                 31 k
+ python-lxml                                             x86_64                             3.2.1-4.el7                                            base                                758 k
+ ttmkfdir                                                x86_64                             3.0.9-42.el7                                           base                                 48 k
+ tzdata-java                                             noarch                             2019a-1.el7                                            updates                             187 k
+ xorg-x11-font-utils                                     x86_64                             1:7.5-21.el7                                           base                                104 k
+ xorg-x11-fonts-Type1                                    noarch                             7.5-9.el7                                              base                                521 k
+
+Transaction Summary
+=============================================================================================================================================================================================
+Install  1 Package (+64 Dependent packages)
+
+Total download size: 45 M
+Installed size: 146 M
+Downloading packages:
+(1/65): avahi-libs-0.6.31-19.el7.x86_64.rpm                                                                                                                           |  61 kB  00:00:00
+(2/65): atk-2.28.1-1.el7.x86_64.rpm                                                                                                                                   | 263 kB  00:00:01
+(3/65): copy-jdk-configs-3.3-10.el7_5.noarch.rpm                                                                                                                      |  21 kB  00:00:00
+(4/65): cairo-1.15.12-3.el7.x86_64.rpm                                                                                                                                | 741 kB  00:00:01
+(5/65): cups-libs-1.6.3-35.el7.x86_64.rpm                                                                                                                             | 357 kB  00:00:00
+(6/65): dejavu-fonts-common-2.33-6.el7.noarch.rpm                                                                                                                     |  64 kB  00:00:00
+(7/65): fontconfig-2.13.0-4.3.el7.x86_64.rpm                                                                                                                          | 254 kB  00:00:00
+(8/65): fontpackages-filesystem-1.44-8.el7.noarch.rpm                                                                                                                 | 9.9 kB  00:00:00
+(9/65): fribidi-1.0.2-1.el7.x86_64.rpm                                                                                                                                |  79 kB  00:00:00
+(10/65): dejavu-sans-fonts-2.33-6.el7.noarch.rpm                                                                                                                      | 1.4 MB  00:00:00
+(11/65): gdk-pixbuf2-2.36.12-3.el7.x86_64.rpm                                                                                                                         | 570 kB  00:00:00
+(12/65): giflib-4.1.6-9.el7.x86_64.rpm                                                                                                                                |  40 kB  00:00:00
+(13/65): graphite2-1.3.10-1.el7_3.x86_64.rpm                                                                                                                          | 115 kB  00:00:00
+(14/65): gtk-update-icon-cache-3.22.30-3.el7.x86_64.rpm                                                                                                               |  28 kB  00:00:00
+(15/65): harfbuzz-1.7.5-2.el7.x86_64.rpm                                                                                                                              | 267 kB  00:00:00
+(16/65): hicolor-icon-theme-0.12-7.el7.noarch.rpm                                                                                                                     |  42 kB  00:00:00
+(17/65): jasper-libs-1.900.1-33.el7.x86_64.rpm                                                                                                                        | 150 kB  00:00:00
+(18/65): javapackages-tools-3.4.1-11.el7.noarch.rpm                                                                                                                   |  73 kB  00:00:00
+(19/65): jbigkit-libs-2.0-11.el7.x86_64.rpm                                                                                                                           |  46 kB  00:00:00
+(20/65): gtk2-2.24.31-1.el7.x86_64.rpm                                                                                                                                | 3.4 MB  00:00:00
+(21/65): libICE-1.0.9-9.el7.x86_64.rpm                                                                                                                                |  66 kB  00:00:00
+(22/65): libSM-1.2.2-2.el7.x86_64.rpm                                                                                                                                 |  39 kB  00:00:00
+(23/65): libX11-common-1.6.5-2.el7.noarch.rpm                                                                                                                         | 164 kB  00:00:00
+(24/65): java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64.rpm                                                                                                          | 270 kB  00:00:00
+(25/65): libX11-1.6.5-2.el7.x86_64.rpm                                                                                                                                | 606 kB  00:00:00
+(26/65): libXau-1.0.8-2.1.el7.x86_64.rpm                                                                                                                              |  29 kB  00:00:00
+(27/65): libXcomposite-0.4.4-4.1.el7.x86_64.rpm                                                                                                                       |  22 kB  00:00:00
+(28/65): libXcursor-1.1.15-1.el7.x86_64.rpm                                                                                                                           |  30 kB  00:00:00
+(29/65): libXdamage-1.1.4-4.1.el7.x86_64.rpm                                                                                                                          |  20 kB  00:00:00
+(30/65): libXext-1.3.3-3.el7.x86_64.rpm                                                                                                                               |  39 kB  00:00:00
+(31/65): libXfixes-5.0.3-1.el7.x86_64.rpm                                                                                                                             |  18 kB  00:00:00
+(32/65): libXft-2.3.2-2.el7.x86_64.rpm                                                                                                                                |  58 kB  00:00:00
+(33/65): libXi-1.7.9-1.el7.x86_64.rpm                                                                                                                                 |  40 kB  00:00:00
+(34/65): libXinerama-1.1.3-2.1.el7.x86_64.rpm                                                                                                                         |  14 kB  00:00:00
+(35/65): libXrandr-1.5.1-2.el7.x86_64.rpm                                                                                                                             |  27 kB  00:00:00
+(36/65): libXrender-0.9.10-1.el7.x86_64.rpm                                                                                                                           |  26 kB  00:00:00
+(37/65): libXtst-1.2.3-1.el7.x86_64.rpm                                                                                                                               |  20 kB  00:00:00
+(38/65): libXxf86vm-1.1.4-1.el7.x86_64.rpm                                                                                                                            |  18 kB  00:00:00
+(39/65): libfontenc-1.1.3-3.el7.x86_64.rpm                                                                                                                            |  31 kB  00:00:00
+(40/65): libglvnd-1.0.1-0.8.git5baa1e5.el7.x86_64.rpm                                                                                                                 |  89 kB  00:00:00
+(41/65): libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64.rpm                                                                                                             |  44 kB  00:00:00
+(42/65): libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64.rpm                                                                                                             | 125 kB  00:00:00
+(43/65): libjpeg-turbo-1.2.90-6.el7.x86_64.rpm                                                                                                                        | 134 kB  00:00:00
+(44/65): libthai-0.1.14-9.el7.x86_64.rpm                                                                                                                              | 187 kB  00:00:00
+(45/65): libtiff-4.0.3-27.el7_3.x86_64.rpm                                                                                                                            | 170 kB  00:00:00
+(46/65): libwayland-client-1.15.0-1.el7.x86_64.rpm                                                                                                                    |  33 kB  00:00:00
+(47/65): libwayland-server-1.15.0-1.el7.x86_64.rpm                                                                                                                    |  39 kB  00:00:00
+(48/65): libxcb-1.13-1.el7.x86_64.rpm                                                                                                                                 | 214 kB  00:00:00
+(49/65): libxshmfence-1.2-1.el7.x86_64.rpm                                                                                                                            | 7.2 kB  00:00:00
+(50/65): libxslt-1.1.28-5.el7.x86_64.rpm                                                                                                                              | 242 kB  00:00:00
+(51/65): mesa-libgbm-18.0.5-4.el7_6.x86_64.rpm                                                                                                                        |  38 kB  00:00:00
+(52/65): lksctp-tools-1.0.17-2.el7.x86_64.rpm                                                                                                                         |  88 kB  00:00:00
+(53/65): mesa-libglapi-18.0.5-4.el7_6.x86_64.rpm                                                                                                                      |  44 kB  00:00:00
+(54/65): pango-1.42.4-1.el7.x86_64.rpm                                                                                                                                | 280 kB  00:00:00
+(55/65): pcsc-lite-libs-1.8.8-8.el7.x86_64.rpm                                                                                                                        |  34 kB  00:00:00
+(56/65): mesa-libEGL-18.0.5-4.el7_6.x86_64.rpm                                                                                                                        | 102 kB  00:00:00
+(57/65): pixman-0.34.0-1.el7.x86_64.rpm                                                                                                                               | 248 kB  00:00:00
+(58/65): python-javapackages-3.4.1-11.el7.noarch.rpm                                                                                                                  |  31 kB  00:00:00
+(59/65): mesa-libGL-18.0.5-4.el7_6.x86_64.rpm                                                                                                                         | 162 kB  00:00:00
+(60/65): ttmkfdir-3.0.9-42.el7.x86_64.rpm                                                                                                                             |  48 kB  00:00:00
+(61/65): tzdata-java-2019a-1.el7.noarch.rpm                                                                                                                           | 187 kB  00:00:00
+(62/65): python-lxml-3.2.1-4.el7.x86_64.rpm                                                                                                                           | 758 kB  00:00:00
+(63/65): xorg-x11-font-utils-7.5-21.el7.x86_64.rpm                                                                                                                    | 104 kB  00:00:00
+(64/65): xorg-x11-fonts-Type1-7.5-9.el7.noarch.rpm                                                                                                                    | 521 kB  00:00:00
+(65/65): java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64.rpm                                                                                                 |  32 MB  00:00:05
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                        5.5 MB/s |  45 MB  00:00:08
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : libjpeg-turbo-1.2.90-6.el7.x86_64                                                                                                                                        1/65
+  Installing : mesa-libglapi-18.0.5-4.el7_6.x86_64                                                                                                                                      2/65
+  Installing : libxshmfence-1.2-1.el7.x86_64                                                                                                                                            3/65
+  Installing : libxslt-1.1.28-5.el7.x86_64                                                                                                                                              4/65
+  Installing : 1:libglvnd-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                               5/65
+  Installing : fontpackages-filesystem-1.44-8.el7.noarch                                                                                                                                6/65
+  Installing : libICE-1.0.9-9.el7.x86_64                                                                                                                                                7/65
+  Installing : libwayland-server-1.15.0-1.el7.x86_64                                                                                                                                    8/65
+  Installing : mesa-libgbm-18.0.5-4.el7_6.x86_64                                                                                                                                        9/65
+  Installing : libSM-1.2.2-2.el7.x86_64                                                                                                                                                10/65
+  Installing : dejavu-fonts-common-2.33-6.el7.noarch                                                                                                                                   11/65
+  Installing : dejavu-sans-fonts-2.33-6.el7.noarch                                                                                                                                     12/65
+  Installing : fontconfig-2.13.0-4.3.el7.x86_64                                                                                                                                        13/65
+  Installing : python-lxml-3.2.1-4.el7.x86_64                                                                                                                                          14/65
+  Installing : python-javapackages-3.4.1-11.el7.noarch                                                                                                                                 15/65
+  Installing : javapackages-tools-3.4.1-11.el7.noarch                                                                                                                                  16/65
+  Installing : jasper-libs-1.900.1-33.el7.x86_64                                                                                                                                       17/65
+  Installing : pixman-0.34.0-1.el7.x86_64                                                                                                                                              18/65
+  Installing : copy-jdk-configs-3.3-10.el7_5.noarch                                                                                                                                    19/65
+  Installing : libfontenc-1.1.3-3.el7.x86_64                                                                                                                                           20/65
+  Installing : 1:xorg-x11-font-utils-7.5-21.el7.x86_64                                                                                                                                 21/65
+  Installing : libthai-0.1.14-9.el7.x86_64                                                                                                                                             22/65
+  Installing : tzdata-java-2019a-1.el7.noarch                                                                                                                                          23/65
+  Installing : libX11-common-1.6.5-2.el7.noarch                                                                                                                                        24/65
+  Installing : graphite2-1.3.10-1.el7_3.x86_64                                                                                                                                         25/65
+  Installing : harfbuzz-1.7.5-2.el7.x86_64                                                                                                                                             26/65
+  Installing : libXau-1.0.8-2.1.el7.x86_64                                                                                                                                             27/65
+  Installing : libxcb-1.13-1.el7.x86_64                                                                                                                                                28/65
+  Installing : libX11-1.6.5-2.el7.x86_64                                                                                                                                               29/65
+  Installing : libXext-1.3.3-3.el7.x86_64                                                                                                                                              30/65
+  Installing : libXrender-0.9.10-1.el7.x86_64                                                                                                                                          31/65
+  Installing : libXfixes-5.0.3-1.el7.x86_64                                                                                                                                            32/65
+  Installing : libXi-1.7.9-1.el7.x86_64                                                                                                                                                33/65
+  Installing : libXdamage-1.1.4-4.1.el7.x86_64                                                                                                                                         34/65
+  Installing : libXcomposite-0.4.4-4.1.el7.x86_64                                                                                                                                      35/65
+  Installing : libXtst-1.2.3-1.el7.x86_64                                                                                                                                              36/65
+  Installing : libXcursor-1.1.15-1.el7.x86_64                                                                                                                                          37/65
+  Installing : libXft-2.3.2-2.el7.x86_64                                                                                                                                               38/65
+  Installing : libXrandr-1.5.1-2.el7.x86_64                                                                                                                                            39/65
+  Installing : libXinerama-1.1.3-2.1.el7.x86_64                                                                                                                                        40/65
+  Installing : libXxf86vm-1.1.4-1.el7.x86_64                                                                                                                                           41/65
+  Installing : mesa-libGL-18.0.5-4.el7_6.x86_64                                                                                                                                        42/65
+  Installing : 1:libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                          43/65
+  Installing : giflib-4.1.6-9.el7.x86_64                                                                                                                                               44/65
+  Installing : jbigkit-libs-2.0-11.el7.x86_64                                                                                                                                          45/65
+  Installing : libtiff-4.0.3-27.el7_3.x86_64                                                                                                                                           46/65
+  Installing : gdk-pixbuf2-2.36.12-3.el7.x86_64                                                                                                                                        47/65
+  Installing : gtk-update-icon-cache-3.22.30-3.el7.x86_64                                                                                                                              48/65
+  Installing : atk-2.28.1-1.el7.x86_64                                                                                                                                                 49/65
+  Installing : pcsc-lite-libs-1.8.8-8.el7.x86_64                                                                                                                                       50/65
+  Installing : fribidi-1.0.2-1.el7.x86_64                                                                                                                                              51/65
+  Installing : hicolor-icon-theme-0.12-7.el7.noarch                                                                                                                                    52/65
+  Installing : lksctp-tools-1.0.17-2.el7.x86_64                                                                                                                                        53/65
+  Installing : avahi-libs-0.6.31-19.el7.x86_64                                                                                                                                         54/65
+  Installing : 1:cups-libs-1.6.3-35.el7.x86_64                                                                                                                                         55/65
+  Installing : 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64                                                                                                              56/65
+  Installing : libwayland-client-1.15.0-1.el7.x86_64                                                                                                                                   57/65
+  Installing : 1:libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                          58/65
+  Installing : mesa-libEGL-18.0.5-4.el7_6.x86_64                                                                                                                                       59/65
+  Installing : cairo-1.15.12-3.el7.x86_64                                                                                                                                              60/65
+  Installing : pango-1.42.4-1.el7.x86_64                                                                                                                                               61/65
+  Installing : gtk2-2.24.31-1.el7.x86_64                                                                                                                                               62/65
+  Installing : ttmkfdir-3.0.9-42.el7.x86_64                                                                                                                                            63/65
+  Installing : xorg-x11-fonts-Type1-7.5-9.el7.noarch                                                                                                                                   64/65
+  Installing : 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64                                                                                                                       65/65
+  Verifying  : libXext-1.3.3-3.el7.x86_64                                                                                                                                               1/65
+  Verifying  : libXi-1.7.9-1.el7.x86_64                                                                                                                                                 2/65
+  Verifying  : libtiff-4.0.3-27.el7_3.x86_64                                                                                                                                            3/65
+  Verifying  : fontconfig-2.13.0-4.3.el7.x86_64                                                                                                                                         4/65
+  Verifying  : giflib-4.1.6-9.el7.x86_64                                                                                                                                                5/65
+  Verifying  : libXinerama-1.1.3-2.1.el7.x86_64                                                                                                                                         6/65
+  Verifying  : libXrender-0.9.10-1.el7.x86_64                                                                                                                                           7/65
+  Verifying  : javapackages-tools-3.4.1-11.el7.noarch                                                                                                                                   8/65
+  Verifying  : 1:xorg-x11-font-utils-7.5-21.el7.x86_64                                                                                                                                  9/65
+  Verifying  : libXxf86vm-1.1.4-1.el7.x86_64                                                                                                                                           10/65
+  Verifying  : libwayland-server-1.15.0-1.el7.x86_64                                                                                                                                   11/65
+  Verifying  : libXcursor-1.1.15-1.el7.x86_64                                                                                                                                          12/65
+  Verifying  : libICE-1.0.9-9.el7.x86_64                                                                                                                                               13/65
+  Verifying  : 1:java-1.8.0-openjdk-headless-1.8.0.212.b04-0.el7_6.x86_64                                                                                                              14/65
+  Verifying  : fontpackages-filesystem-1.44-8.el7.noarch                                                                                                                               15/65
+  Verifying  : ttmkfdir-3.0.9-42.el7.x86_64                                                                                                                                            16/65
+  Verifying  : libjpeg-turbo-1.2.90-6.el7.x86_64                                                                                                                                       17/65
+  Verifying  : pango-1.42.4-1.el7.x86_64                                                                                                                                               18/65
+  Verifying  : libwayland-client-1.15.0-1.el7.x86_64                                                                                                                                   19/65
+  Verifying  : avahi-libs-0.6.31-19.el7.x86_64                                                                                                                                         20/65
+  Verifying  : gdk-pixbuf2-2.36.12-3.el7.x86_64                                                                                                                                        21/65
+  Verifying  : gtk2-2.24.31-1.el7.x86_64                                                                                                                                               22/65
+  Verifying  : gtk-update-icon-cache-3.22.30-3.el7.x86_64                                                                                                                              23/65
+  Verifying  : python-javapackages-3.4.1-11.el7.noarch                                                                                                                                 24/65
+  Verifying  : mesa-libgbm-18.0.5-4.el7_6.x86_64                                                                                                                                       25/65
+  Verifying  : dejavu-fonts-common-2.33-6.el7.noarch                                                                                                                                   26/65
+  Verifying  : libXcomposite-0.4.4-4.1.el7.x86_64                                                                                                                                      27/65
+  Verifying  : libXtst-1.2.3-1.el7.x86_64                                                                                                                                              28/65
+  Verifying  : 1:libglvnd-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                              29/65
+  Verifying  : libxcb-1.13-1.el7.x86_64                                                                                                                                                30/65
+  Verifying  : libXft-2.3.2-2.el7.x86_64                                                                                                                                               31/65
+  Verifying  : 1:libglvnd-egl-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                          32/65
+  Verifying  : 1:java-1.8.0-openjdk-1.8.0.212.b04-0.el7_6.x86_64                                                                                                                       33/65
+  Verifying  : lksctp-tools-1.0.17-2.el7.x86_64                                                                                                                                        34/65
+  Verifying  : hicolor-icon-theme-0.12-7.el7.noarch                                                                                                                                    35/65
+  Verifying  : mesa-libEGL-18.0.5-4.el7_6.x86_64                                                                                                                                       36/65
+  Verifying  : mesa-libGL-18.0.5-4.el7_6.x86_64                                                                                                                                        37/65
+  Verifying  : xorg-x11-fonts-Type1-7.5-9.el7.noarch                                                                                                                                   38/65
+  Verifying  : harfbuzz-1.7.5-2.el7.x86_64                                                                                                                                             39/65
+  Verifying  : libxslt-1.1.28-5.el7.x86_64                                                                                                                                             40/65
+  Verifying  : fribidi-1.0.2-1.el7.x86_64                                                                                                                                              41/65
+  Verifying  : libX11-1.6.5-2.el7.x86_64                                                                                                                                               42/65
+  Verifying  : 1:libglvnd-glx-1.0.1-0.8.git5baa1e5.el7.x86_64                                                                                                                          43/65
+  Verifying  : dejavu-sans-fonts-2.33-6.el7.noarch                                                                                                                                     44/65
+  Verifying  : libXrandr-1.5.1-2.el7.x86_64                                                                                                                                            45/65
+  Verifying  : pcsc-lite-libs-1.8.8-8.el7.x86_64                                                                                                                                       46/65
+  Verifying  : atk-2.28.1-1.el7.x86_64                                                                                                                                                 47/65
+  Verifying  : jbigkit-libs-2.0-11.el7.x86_64                                                                                                                                          48/65
+  Verifying  : cairo-1.15.12-3.el7.x86_64                                                                                                                                              49/65
+  Verifying  : 1:cups-libs-1.6.3-35.el7.x86_64                                                                                                                                         50/65
+  Verifying  : libxshmfence-1.2-1.el7.x86_64                                                                                                                                           51/65
+  Verifying  : libXau-1.0.8-2.1.el7.x86_64                                                                                                                                             52/65
+  Verifying  : libSM-1.2.2-2.el7.x86_64                                                                                                                                                53/65
+  Verifying  : jasper-libs-1.900.1-33.el7.x86_64                                                                                                                                       54/65
+  Verifying  : graphite2-1.3.10-1.el7_3.x86_64                                                                                                                                         55/65
+  Verifying  : libX11-common-1.6.5-2.el7.noarch                                                                                                                                        56/65
+  Verifying  : python-lxml-3.2.1-4.el7.x86_64                                                                                                                                          57/65
+  Verifying  : tzdata-java-2019a-1.el7.noarch                                                                                                                                          58/65
+  Verifying  : libthai-0.1.14-9.el7.x86_64                                                                                                                                             59/65
+  Verifying  : libXdamage-1.1.4-4.1.el7.x86_64                                                                                                                                         60/65
+  Verifying  : libXfixes-5.0.3-1.el7.x86_64                                                                                                                                            61/65
+  Verifying  : libfontenc-1.1.3-3.el7.x86_64                                                                                                                                           62/65
+  Verifying  : mesa-libglapi-18.0.5-4.el7_6.x86_64                                                                                                                                     63/65
+  Verifying  : copy-jdk-configs-3.3-10.el7_5.noarch                                                                                                                                    64/65
+  Verifying  : pixman-0.34.0-1.el7.x86_64                                                                                                                                              65/65
+
+Installed:
+  java-1.8.0-openjdk.x86_64 1:1.8.0.212.b04-0.el7_6
+
+Dependency Installed:
+  atk.x86_64 0:2.28.1-1.el7                                             avahi-libs.x86_64 0:0.6.31-19.el7                         cairo.x86_64 0:1.15.12-3.el7
+  copy-jdk-configs.noarch 0:3.3-10.el7_5                                cups-libs.x86_64 1:1.6.3-35.el7                           dejavu-fonts-common.noarch 0:2.33-6.el7
+  dejavu-sans-fonts.noarch 0:2.33-6.el7                                 fontconfig.x86_64 0:2.13.0-4.3.el7                        fontpackages-filesystem.noarch 0:1.44-8.el7
+  fribidi.x86_64 0:1.0.2-1.el7                                          gdk-pixbuf2.x86_64 0:2.36.12-3.el7                        giflib.x86_64 0:4.1.6-9.el7
+  graphite2.x86_64 0:1.3.10-1.el7_3                                     gtk-update-icon-cache.x86_64 0:3.22.30-3.el7              gtk2.x86_64 0:2.24.31-1.el7
+  harfbuzz.x86_64 0:1.7.5-2.el7                                         hicolor-icon-theme.noarch 0:0.12-7.el7                    jasper-libs.x86_64 0:1.900.1-33.el7
+  java-1.8.0-openjdk-headless.x86_64 1:1.8.0.212.b04-0.el7_6            javapackages-tools.noarch 0:3.4.1-11.el7                  jbigkit-libs.x86_64 0:2.0-11.el7
+  libICE.x86_64 0:1.0.9-9.el7                                           libSM.x86_64 0:1.2.2-2.el7                                libX11.x86_64 0:1.6.5-2.el7
+  libX11-common.noarch 0:1.6.5-2.el7                                    libXau.x86_64 0:1.0.8-2.1.el7                             libXcomposite.x86_64 0:0.4.4-4.1.el7
+  libXcursor.x86_64 0:1.1.15-1.el7                                      libXdamage.x86_64 0:1.1.4-4.1.el7                         libXext.x86_64 0:1.3.3-3.el7
+  libXfixes.x86_64 0:5.0.3-1.el7                                        libXft.x86_64 0:2.3.2-2.el7                               libXi.x86_64 0:1.7.9-1.el7
+  libXinerama.x86_64 0:1.1.3-2.1.el7                                    libXrandr.x86_64 0:1.5.1-2.el7                            libXrender.x86_64 0:0.9.10-1.el7
+  libXtst.x86_64 0:1.2.3-1.el7                                          libXxf86vm.x86_64 0:1.1.4-1.el7                           libfontenc.x86_64 0:1.1.3-3.el7
+  libglvnd.x86_64 1:1.0.1-0.8.git5baa1e5.el7                            libglvnd-egl.x86_64 1:1.0.1-0.8.git5baa1e5.el7            libglvnd-glx.x86_64 1:1.0.1-0.8.git5baa1e5.el7
+  libjpeg-turbo.x86_64 0:1.2.90-6.el7                                   libthai.x86_64 0:0.1.14-9.el7                             libtiff.x86_64 0:4.0.3-27.el7_3
+  libwayland-client.x86_64 0:1.15.0-1.el7                               libwayland-server.x86_64 0:1.15.0-1.el7                   libxcb.x86_64 0:1.13-1.el7
+  libxshmfence.x86_64 0:1.2-1.el7                                       libxslt.x86_64 0:1.1.28-5.el7                             lksctp-tools.x86_64 0:1.0.17-2.el7
+  mesa-libEGL.x86_64 0:18.0.5-4.el7_6                                   mesa-libGL.x86_64 0:18.0.5-4.el7_6                        mesa-libgbm.x86_64 0:18.0.5-4.el7_6
+  mesa-libglapi.x86_64 0:18.0.5-4.el7_6                                 pango.x86_64 0:1.42.4-1.el7                               pcsc-lite-libs.x86_64 0:1.8.8-8.el7
+  pixman.x86_64 0:0.34.0-1.el7                                          python-javapackages.noarch 0:3.4.1-11.el7                 python-lxml.x86_64 0:3.2.1-4.el7
+  ttmkfdir.x86_64 0:3.0.9-42.el7                                        tzdata-java.noarch 0:2019a-1.el7                          xorg-x11-font-utils.x86_64 1:7.5-21.el7
+  xorg-x11-fonts-Type1.noarch 0:7.5-9.el7
+
+Complete!
+[root@hdp-node-1 ~]# yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo
+-bash: yum-config-manager: command not found
+[root@hdp-node-1 ~]# yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo
+-bash: yum-config-manager: command not found
+[root@hdp-node-1 ~]# sudo yum install epel-release
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+Package epel-release-7-11.noarch already installed and latest version
+Nothing to do
+[root@hdp-node-1 ~]# yum-config-manager
+-bash: yum-config-manager: command not found
+[root@hdp-node-1 ~]# yum install yum-config-manager
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+No package yum-config-manager available.
+Error: Nothing to do
+[root@hdp-node-1 ~]# yum search yum-config-manager
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+================================================================================ Matched: yum-config-manager ================================================================================
+yum-utils.noarch : Utilities based around the yum package manager
+[root@hdp-node-1 ~]# yum install yum-utils.noarch
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+Resolving Dependencies
+--> Running transaction check
+---> Package yum-utils.noarch 0:1.1.31-50.el7 will be installed
+--> Processing Dependency: python-kitchen for package: yum-utils-1.1.31-50.el7.noarch
+--> Processing Dependency: libxml2-python for package: yum-utils-1.1.31-50.el7.noarch
+--> Running transaction check
+---> Package libxml2-python.x86_64 0:2.9.1-6.el7_2.3 will be installed
+---> Package python-kitchen.noarch 0:1.1.1-5.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================================================================
+ Package                                          Arch                                     Version                                              Repository                              Size
+=============================================================================================================================================================================================
+Installing:
+ yum-utils                                        noarch                                   1.1.31-50.el7                                        base                                   121 k
+Installing for dependencies:
+ libxml2-python                                   x86_64                                   2.9.1-6.el7_2.3                                      base                                   247 k
+ python-kitchen                                   noarch                                   1.1.1-5.el7                                          base                                   267 k
+
+Transaction Summary
+=============================================================================================================================================================================================
+Install  1 Package (+2 Dependent packages)
+
+Total download size: 634 k
+Installed size: 3.2 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/3): python-kitchen-1.1.1-5.el7.noarch.rpm                                                                                                                          | 267 kB  00:00:01
+(2/3): libxml2-python-2.9.1-6.el7_2.3.x86_64.rpm                                                                                                                      | 247 kB  00:00:01
+(3/3): yum-utils-1.1.31-50.el7.noarch.rpm                                                                                                                             | 121 kB  00:00:00
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                        390 kB/s | 634 kB  00:00:01
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : python-kitchen-1.1.1-5.el7.noarch                                                                                                                                         1/3
+  Installing : libxml2-python-2.9.1-6.el7_2.3.x86_64                                                                                                                                     2/3
+  Installing : yum-utils-1.1.31-50.el7.noarch                                                                                                                                            3/3
+  Verifying  : libxml2-python-2.9.1-6.el7_2.3.x86_64                                                                                                                                     1/3
+  Verifying  : python-kitchen-1.1.1-5.el7.noarch                                                                                                                                         2/3
+  Verifying  : yum-utils-1.1.31-50.el7.noarch                                                                                                                                            3/3
+
+Installed:
+  yum-utils.noarch 0:1.1.31-50.el7
+
+Dependency Installed:
+  libxml2-python.x86_64 0:2.9.1-6.el7_2.3                                                         python-kitchen.noarch 0:1.1.1-5.el7
+
+Complete!
+[root@hdp-node-1 ~]# yum-config-manager
+Loaded plugins: fastestmirror
+=========================================================================================== main ============================================================================================
+[main]
+alwaysprompt = True
+assumeno = False
+assumeyes = False
+autocheck_running_kernel = True
+autosavets = True
+bandwidth = 0
+bugtracker_url = http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+cache = 0
+cachedir = /var/cache/yum/x86_64/7
+check_config_file_age = True
+clean_requirements_on_remove = False
+color = auto
+color_list_available_downgrade = dim,cyan
+color_list_available_install = normal
+color_list_available_reinstall = bold,underline,green
+color_list_available_running_kernel = bold,underline
+color_list_available_upgrade = bold,blue
+color_list_installed_extra = bold,red
+color_list_installed_newer = bold,yellow
+color_list_installed_older = bold
+color_list_installed_reinstall = normal
+color_list_installed_running_kernel = bold,underline
+color_search_match = bold
+color_update_installed = normal
+color_update_local = bold
+color_update_remote = normal
+commands =
+debuglevel = 2
+deltarpm = 2
+deltarpm_metadata_percentage = 100
+deltarpm_percentage = 75
+depsolve_loop_limit = 100
+disable_includes =
+diskspacecheck = True
+distroverpkg = centos-release
+downloaddir =
+downloadonly =
+enable_group_conditionals = True
+enabled = True
+enablegroups = True
+errorlevel = 2
+exactarch = True
+exactarchlist =
+exclude =
+exit_on_lock = False
+failovermethod = priority
+fssnap_abort_on_errors = any
+fssnap_automatic_keep = 1
+fssnap_automatic_post = False
+fssnap_automatic_pre = False
+fssnap_devices = !*/swap,
+   !*/lv_swap
+fssnap_percentage = 100
+ftp_disable_epsv = False
+gaftonmode = False
+gpgcheck = True
+group_command = objects
+group_package_types = mandatory,
+   default
+groupremove_leaf_only = False
+history_list_view = single-user-commands
+history_record = True
+history_record_packages = yum,
+   rpm
+http_caching = all
+installonly_limit = 5
+installonlypkgs = kernel,
+   kernel-bigmem,
+   installonlypkg(kernel),
+   installonlypkg(kernel-module),
+   installonlypkg(vm),
+   kernel-enterprise,
+   kernel-smp,
+   kernel-debug,
+   kernel-unsupported,
+   kernel-source,
+   kernel-devel,
+   kernel-PAE,
+   kernel-PAE-debug
+installroot = /
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+kernelpkgnames = kernel,
+   kernel-smp,
+   kernel-enterprise,
+   kernel-bigmem,
+   kernel-BOOT,
+   kernel-PAE,
+   kernel-PAE-debug
+loadts_ignoremissing = False
+loadts_ignorenewrpm = False
+loadts_ignorerpm = False
+localpkg_gpgcheck = False
+logfile = /var/log/yum.log
+max_connections = 0
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+minrate = 0
+mirrorlist_expire = 86400
+multilib_policy = best
+obsoletes = True
+override_install_langs =
+overwrite_groups = False
+password =
+payload_gpgcheck = False
+persistdir = /var/lib/yum
+pluginconfpath = /etc/yum/pluginconf.d
+pluginpath = /usr/share/yum-plugins,
+   /usr/lib/yum-plugins
+plugins = True
+progess_obj =
+protected_multilib = True
+protected_packages = yum,
+   systemd
+proxy = False
+proxy_password =
+proxy_username =
+query_install_excludes = False
+recent = 7
+recheck_installed_requires = True
+remove_leaf_only = False
+repo_gpgcheck = False
+repopkgsremove_leaf_only = False
+reposdir = /etc/yum/repos.d,
+   /etc/yum.repos.d
+reset_nice = True
+retries = 10
+rpm_check_debug = True
+rpmverbosity = info
+shell_exit_status = 0
+showdupesfromrepos = False
+skip_broken = False
+skip_missing_names_on_install = True
+skip_missing_names_on_update = True
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+syslog_device = /dev/log
+syslog_facility = LOG_USER
+syslog_ident =
+throttle = 0
+timeout = 30.0
+tolerant = True
+tsflags =
+ui_repoid_vars = releasever,
+   basearch
+upgrade_group_objects_upgrade = True
+upgrade_requirements_on_install = False
+usercache = True
+username =
+usr_w_check = True
+
+======================================================================================== repo: base =========================================================================================
+[base]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl =
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/base
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/base/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/base/gpgdir
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+hdrdir = /var/cache/yum/x86_64/7/base/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink =
+minrate = 0
+mirrorlist = http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=os&infra=stock
+mirrorlist_expire = 86400
+name = CentOS-7 - Base
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/base
+pkgdir = /var/cache/yum/x86_64/7/base/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = False
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = base/7/x86_64
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+======================================================================================== repo: epel =========================================================================================
+[epel]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl =
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/epel
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/epel/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/epel/gpgdir
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+hdrdir = /var/cache/yum/x86_64/7/epel/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink = https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=x86_64
+minrate = 0
+mirrorlist =
+mirrorlist_expire = 86400
+name = Extra Packages for Enterprise Linux 7 - x86_64
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/epel
+pkgdir = /var/cache/yum/x86_64/7/epel/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = False
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = epel/x86_64
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+======================================================================================= repo: extras ========================================================================================
+[extras]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl =
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/extras
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/extras/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/extras/gpgdir
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+hdrdir = /var/cache/yum/x86_64/7/extras/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink =
+minrate = 0
+mirrorlist = http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=extras&infra=stock
+mirrorlist_expire = 86400
+name = CentOS-7 - Extras
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/extras
+pkgdir = /var/cache/yum/x86_64/7/extras/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = False
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = extras/7/x86_64
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+================================================================================ repo: google-cloud-compute =================================================================================
+[google-cloud-compute]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl = https://packages.cloud.google.com/yum/repos/google-cloud-compute-el7-x86_64
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/google-cloud-compute
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/google-cloud-compute/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/google-cloud-compute/gpgdir
+gpgkey = https://packages.cloud.google.com/yum/doc/yum-key.gpg,
+   https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+hdrdir = /var/cache/yum/x86_64/7/google-cloud-compute/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink =
+minrate = 0
+mirrorlist =
+mirrorlist_expire = 86400
+name = Google Cloud Compute
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/google-cloud-compute
+pkgdir = /var/cache/yum/x86_64/7/google-cloud-compute/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = True
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = google-cloud-compute
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+================================================================================== repo: google-cloud-sdk ===================================================================================
+[google-cloud-sdk]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl = https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/google-cloud-sdk
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/google-cloud-sdk/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/google-cloud-sdk/gpgdir
+gpgkey = https://packages.cloud.google.com/yum/doc/yum-key.gpg,
+   https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+hdrdir = /var/cache/yum/x86_64/7/google-cloud-sdk/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink =
+minrate = 0
+mirrorlist =
+mirrorlist_expire = 86400
+name = Google Cloud SDK
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/google-cloud-sdk
+pkgdir = /var/cache/yum/x86_64/7/google-cloud-sdk/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = True
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = google-cloud-sdk
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+======================================================================================= repo: updates =======================================================================================
+[updates]
+async = True
+bandwidth = 0
+base_persistdir = /var/lib/yum/repos/x86_64/7
+baseurl =
+cache = 0
+cachedir = /var/cache/yum/x86_64/7/updates
+check_config_file_age = True
+compare_providers_priority = 80
+cost = 1000
+deltarpm_metadata_percentage = 100
+deltarpm_percentage =
+enabled = True
+enablegroups = True
+exclude =
+failovermethod = priority
+ftp_disable_epsv = False
+gpgcadir = /var/lib/yum/repos/x86_64/7/updates/gpgcadir
+gpgcakey =
+gpgcheck = True
+gpgdir = /var/lib/yum/repos/x86_64/7/updates/gpgdir
+gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+hdrdir = /var/cache/yum/x86_64/7/updates/headers
+http_caching = all
+includepkgs =
+ip_resolve = ipv4
+keepalive = True
+keepcache = False
+mddownloadpolicy = sqlite
+mdpolicy = group:small
+mediaid =
+metadata_expire = 21600
+metadata_expire_filter = read-only:present
+metalink =
+minrate = 0
+mirrorlist = http://mirrorlist.centos.org/?release=7&arch=x86_64&repo=updates&infra=stock
+mirrorlist_expire = 86400
+name = CentOS-7 - Updates
+old_base_cache_dir =
+password =
+persistdir = /var/lib/yum/repos/x86_64/7/updates
+pkgdir = /var/cache/yum/x86_64/7/updates/packages
+proxy = False
+proxy_dict =
+proxy_password =
+proxy_username =
+repo_gpgcheck = False
+retries = 10
+skip_if_unavailable = False
+ssl_check_cert_permissions = True
+sslcacert =
+sslclientcert =
+sslclientkey =
+sslverify = True
+throttle = 0
+timeout = 30.0
+ui_id = updates/7/x86_64
+ui_repoid_vars = releasever,
+   basearch
+username =
+
+[root@hdp-node-1 ~]# yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo
+Loaded plugins: fastestmirror
+adding repo from: http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo
+grabbing file http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo to /etc/yum.repos.d/ambari.repo
+repo saved to /etc/yum.repos.d/ambari.repo
+[root@hdp-node-1 ~]# yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo
+Loaded plugins: fastestmirror
+adding repo from: http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo
+grabbing file http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo to /etc/yum.repos.d/hdp.repo
+repo saved to /etc/yum.repos.d/hdp.repo
+[root@hdp-node-1 ~]# yum -y install ambari-server
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.fileplanet.com
+ * epel: d2lzkl7pfhq30w.cloudfront.net
+ * extras: repos-lax.psychz.net
+ * updates: mirror.fileplanet.com
+HDP-3.1.0.0                                                                                                                                                           | 2.9 kB  00:00:00
+HDP-UTILS-1.1.0.22                                                                                                                                                    | 2.9 kB  00:00:00
+ambari-2.7.3.0                                                                                                                                                        | 2.9 kB  00:00:00
+(1/3): HDP-UTILS-1.1.0.22/primary_db                                                                                                                                  | 8.5 kB  00:00:00
+(2/3): ambari-2.7.3.0/primary_db                                                                                                                                      |  25 kB  00:00:00
+(3/3): HDP-3.1.0.0/primary_db                                                                                                                                         |  89 kB  00:00:00
+Resolving Dependencies
+--> Running transaction check
+---> Package ambari-server.x86_64 0:2.7.3.0-139 will be installed
+--> Processing Dependency: postgresql-server >= 8.1 for package: ambari-server-2.7.3.0-139.x86_64
+--> Running transaction check
+---> Package postgresql-server.x86_64 0:9.2.24-1.el7_5 will be installed
+--> Processing Dependency: postgresql-libs(x86-64) = 9.2.24-1.el7_5 for package: postgresql-server-9.2.24-1.el7_5.x86_64
+--> Processing Dependency: postgresql(x86-64) = 9.2.24-1.el7_5 for package: postgresql-server-9.2.24-1.el7_5.x86_64
+--> Processing Dependency: libpq.so.5()(64bit) for package: postgresql-server-9.2.24-1.el7_5.x86_64
+--> Running transaction check
+---> Package postgresql.x86_64 0:9.2.24-1.el7_5 will be installed
+---> Package postgresql-libs.x86_64 0:9.2.24-1.el7_5 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=============================================================================================================================================================================================
+ Package                                          Arch                                  Version                                          Repository                                     Size
+=============================================================================================================================================================================================
+Installing:
+ ambari-server                                    x86_64                                2.7.3.0-139                                      ambari-2.7.3.0                                352 M
+Installing for dependencies:
+ postgresql                                       x86_64                                9.2.24-1.el7_5                                   base                                          3.0 M
+ postgresql-libs                                  x86_64                                9.2.24-1.el7_5                                   base                                          234 k
+ postgresql-server                                x86_64                                9.2.24-1.el7_5                                   base                                          3.8 M
+
+Transaction Summary
+=============================================================================================================================================================================================
+Install  1 Package (+3 Dependent packages)
+
+Total download size: 359 M
+Installed size: 451 M
+Downloading packages:
+(1/4): postgresql-libs-9.2.24-1.el7_5.x86_64.rpm                                                                                                                      | 234 kB  00:00:01
+(2/4): postgresql-9.2.24-1.el7_5.x86_64.rpm                                                                                                                           | 3.0 MB  00:00:02
+(3/4): postgresql-server-9.2.24-1.el7_5.x86_64.rpm                                                                                                                    | 3.8 MB  00:00:05
+warning: /var/cache/yum/x86_64/7/ambari-2.7.3.0/packages/ambari-server-2.7.3.0-139.x86_64.rpm: Header V4 RSA/SHA1 Signature, key ID 07513cad: NOKEY======  ]  41 MB/s | 349 MB  00:00:00 ETA
+Public key for ambari-server-2.7.3.0-139.x86_64.rpm is not installed
+(4/4): ambari-server-2.7.3.0-139.x86_64.rpm                                                                                                                           | 352 MB  00:00:09
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                                         39 MB/s | 359 MB  00:00:09
+Retrieving key from http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+Importing GPG key 0x07513CAD:
+ Userid     : "Jenkins (HDP Builds) <jenkin@hortonworks.com>"
+ Fingerprint: df52 ed4f 7a3a 5882 c099 4c66 b973 3a7a 0751 3cad
+ From       : http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : postgresql-libs-9.2.24-1.el7_5.x86_64                                                                                                                                     1/4
+  Installing : postgresql-9.2.24-1.el7_5.x86_64                                                                                                                                          2/4
+  Installing : postgresql-server-9.2.24-1.el7_5.x86_64                                                                                                                                   3/4
+  Installing : ambari-server-2.7.3.0-139.x86_64                                                                                                                                          4/4
+  Verifying  : postgresql-server-9.2.24-1.el7_5.x86_64                                                                                                                                   1/4
+  Verifying  : postgresql-libs-9.2.24-1.el7_5.x86_64                                                                                                                                     2/4
+  Verifying  : ambari-server-2.7.3.0-139.x86_64                                                                                                                                          3/4
+  Verifying  : postgresql-9.2.24-1.el7_5.x86_64                                                                                                                                          4/4
+
+Installed:
+  ambari-server.x86_64 0:2.7.3.0-139
+
+Dependency Installed:
+  postgresql.x86_64 0:9.2.24-1.el7_5                        postgresql-libs.x86_64 0:9.2.24-1.el7_5                        postgresql-server.x86_64 0:9.2.24-1.el7_5
+
+Complete!
+[root@hdp-node-1 ~]# ambari-server setup
+Using python  /usr/bin/python
+Setup ambari-server
+Checking SELinux...
+SELinux status is 'enabled'
+SELinux mode is 'enforcing'
+Temporarily disabling SELinux
+WARNING: SELinux is set to 'permissive' mode and temporarily disabled.
+OK to continue [y/n] (y)? y
+Customize user account for ambari-server daemon [y/n] (n)? n
+Adjusting ambari-server permissions and ownership...
+Checking firewall status...
+WARNING: iptables is running. Confirm the necessary Ambari ports are accessible. Refer to the Ambari documentation for more details on ports.
+OK to continue [y/n] (y)? y^C
+Aborting ... Keyboard Interrupt.
+[root@hdp-node-1 ~]# sudo firewall-cmd --state
+running
+[root@hdp-node-1 ~]# sudo systemctl stop firewalld
+[root@hdp-node-1 ~]# ambari-server setup
+Using python  /usr/bin/python
+Setup ambari-server
+Checking SELinux...
+SELinux status is 'enabled'
+SELinux mode is 'permissive'
+WARNING: SELinux is set to 'permissive' mode and temporarily disabled.
+OK to continue [y/n] (y)? y
+Customize user account for ambari-server daemon [y/n] (n)? n
+Adjusting ambari-server permissions and ownership...
+Checking firewall status...
+Checking JDK...
+[1] Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8
+[2] Custom JDK
+==============================================================================
+Enter choice (1): 1
+To download the Oracle JDK and the Java Cryptography Extension (JCE) Policy Files you must accept the license terms found at http://www.oracle.com/technetwork/java/javase/terms/license/index.html and not accepting will cancel the Ambari Server setup and you must install the JDK and JCE files manually.
+Do you accept the Oracle Binary Code License Agreement [y/n] (y)? y
+Downloading JDK from http://public-repo-1.hortonworks.com/ARTIFACTS/jdk-8u112-linux-x64.tar.gz to /var/lib/ambari-server/resources/jdk-8u112-linux-x64.tar.gz
+jdk-8u112-linux-x64.tar.gz... 100% (174.7 MB of 174.7 MB)
+Successfully downloaded JDK distribution to /var/lib/ambari-server/resources/jdk-8u112-linux-x64.tar.gz
+Installing JDK to /usr/jdk64/
+Successfully installed JDK to /usr/jdk64/
+Downloading JCE Policy archive from http://public-repo-1.hortonworks.com/ARTIFACTS/jce_policy-8.zip to /var/lib/ambari-server/resources/jce_policy-8.zip
+
+Successfully downloaded JCE Policy archive to /var/lib/ambari-server/resources/jce_policy-8.zip
+Installing JCE policy...
+Check JDK version for Ambari Server...
+JDK version found: 8
+Minimum JDK version is 8 for Ambari. Skipping to setup different JDK for Ambari Server.
+Checking GPL software agreement...
+GPL License for LZO: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+Enable Ambari Server to download and install GPL Licensed LZO packages [y/n] (n)? y
+Completing setup...
+Configuring database...
+Enter advanced database configuration [y/n] (n)? y
+Configuring database...
+==============================================================================
+Choose one of the following options:
+[1] - PostgreSQL (Embedded)
+[2] - Oracle
+[3] - MySQL / MariaDB
+[4] - PostgreSQL
+[5] - Microsoft SQL Server (Tech Preview)
+[6] - SQL Anywhere
+[7] - BDB
+==============================================================================
+Enter choice (1): 1
+Database admin user (postgres):
+Database name (ambari):
+Postgres schema (ambari):
+Username (ambari):
+Enter Database Password (bigdata):
+Default properties detected. Using built-in database.
+Configuring ambari database...
+Checking PostgreSQL...
+Running initdb: This may take up to a minute.
+Initializing database ... OK
+
+
+About to start PostgreSQL
+Configuring local database...
+Configuring PostgreSQL...
+Restarting PostgreSQL
+Creating schema and user...
+done.
+Creating tables...
+done.
+Extracting system views...
+ambari-admin-2.7.3.0.139.jar
+....
+Ambari repo file contains latest json url http://public-repo-1.hortonworks.com/HDP/hdp_urlinfo.json, updating stacks repoinfos with it...
+Adjusting ambari-server permissions and ownership...
+Ambari Server 'setup' completed successfully.
+[root@hdp-node-1 ~]# ambari-server start
+Using python  /usr/bin/python
+Starting ambari-server
+Ambari Server running with administrator privileges.
+Organizing resource files at /var/lib/ambari-server/resources...
+Ambari database consistency check started...
+Server PID at: /var/run/ambari-server/ambari-server.pid
+Server out at: /var/log/ambari-server/ambari-server.out
+Server log at: /var/log/ambari-server/ambari-server.log
+Waiting for server start.........................
+Server started listening on 8080
+
+DB configs consistency check: no errors and warnings were found.
+Ambari Server 'start' completed successfully.
+[root@hdp-node-1 ~]# hostname -f
+hdp-node-1.europe-west2-c.c.hdp310.internal
+[root@hdp-node-1 ~]# hostname
+hdp-node-1
+[root@hdp-node-1 ~]# ifconfig
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1460
+        inet 10.154.0.4  netmask 255.255.255.255  broadcast 10.154.0.4
+        inet6 fe80::4001:aff:fe9a:4  prefixlen 64  scopeid 0x20<link>
+        ether 42:01:0a:9a:00:04  txqueuelen 1000  (Ethernet)
+        RX packets 41214  bytes 629278822 (600.1 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 27751  bytes 3162162 (3.0 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 869  bytes 212105 (207.1 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 869  bytes 212105 (207.1 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+[root@hdp-node-1 ~]# cat ~/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAsQkk3zuqXJXuJaMjLTsWySBTnSrVZ8mFmBxSA3qWA4YMIY7Y
+5gY2QYl7OY2nx1A91HJKw23DtKax/2OM1cJug/ts85OXWmIPQEoi55ZUXtpvrOpB
+YvAnymG/zzX7bUyCXC3VBKOhQu4w+GolIfRH/E4or8AUZvBJSB5A8oWoxZ7yjG+s
+V1/BBl8bqNM1gw8UvlZYDP4txsvJiVvPTnhztkWBoJoebQwTDt/654yxuOsloSjN
+AF+WK4+J8fWfyoVIduF8woad78n92rSDQ0/SRusL8RbEbcHxUWhj9PFqJAXCIC0X
+poXpVIcUcqZGBH4WISUkHTD646rsXPmL0KW06wIDAQABAoIBAHV4ytWyAr6C4k5p
+LOtTfTAiWjk89fRzfUlM6YLTcf2OkjgmUHh6AMCGGJU9EOqprQ1udXuuNyGFRzFe
+/lHNPYYobMhH1DOuQ852Iykm0H9MVLQZkR+0mcKqEBvQBzEkho/h/aqhZV1DLo13
+6YHZVXbu6gKM4zzXDtli8de7pxzR3DYoauNZfMDuSNuFl8ecMLR9sXlfChyvr7WK
+9Y56HO+IUgbpgBYXUfSwv+Zap8FUVS1VENwYb+NFnvOrIKzKmnvC70gcFQ7WxFJO
+1LT9CHoCg9EcXlawXOLAvaYLiizs7vzvlkxg981Wdk+RcJv2qNFW5yT+ic04VYTH
+yI9TN1kCgYEA12wAR/RAfU/+spj3cL17lk15hTJzvJePp2F+j+CI96AlTvCCJQKD
+5t/adi/YjeVtoVDRNxcyYT81s/L4wnT8dyNpBoZNHP2HgASDqT8lizm8IZlOlw2z
+t8NzljuYS0KhLgvXLWJw/XA1PgSRN+EfMdWT+ZAdowfSwPc5yompImcCgYEA0mIZ
+TxcObXcTT9+W/b5CTpU6n9gSOX8w2hmIJDfO4xEMwaXY9LcI265wA2s/kYz0NbKG
+5BM2bPMlruxtGD/2qH4x0d6Cn3PIUk2gp2oMwJ6xkwakkjXNP6cPUkRXNMPPnPCa
+6cEFntxviGTpfGDSUl9uSjSBHyuOl3wQbosXrt0CgYEApcLwMG3tVb/BT7JO7IyR
+VaWF9Y1N63eATZ7CoXl4S3sKWkTNECdwUa48zyaf7wf0pOWoJ0kNNjFKZI55BkC4
+qAAyZ5feLImVw1c17HyvqgMiFYR/KdKcULHv9lEjLf42QlVQHRcbtJisD226RJJQ
+y6r5s1ZGx9VUQbG64XOuFs8CgYByNeM7dm7UqkIHqIAVvEXO12B+ChTKtevVWur3
+jnx39HeSYPCI2Ryr9eTFVmGqKHUi+YoVIwD24IDil2MaOQ80pV1ya3NKENb9JztB
+52aI4x3PjVmmLiMAnTbKGGOnN23r6wqOP8VHWrAJwY6ngQBsy3XaPuqh+0lrn2Rk
+Popa2QKBgQDJcm4fWHLhPuoPHpidHphU/aRkUwbJZv19H8IlRa6/EE3TXVaGMxVE
+AO9lKCB3r/LkxJbIZ4+Gg3VuC5UF7NHrik++BM6hRxNfxUX/AVnHp1booFom/ZNx
+aj2Sa1tCDS/kQ5asjjnVamSmwwqgjRxiYxoT8cmMNI6exF8g2ck39A==
+-----END RSA PRIVATE KEY-----
+[root@hdp-node-1 ~]# cat id_rsa.pub >> authorized_keys
+cat: id_rsa.pub: No such file or directory
+[root@hdp-node-1 ~]# cat ~/.ssh/id_rsa.pub >> authorized_keys
+[root@hdp-node-1 ~]# chmod 600 ~/.ssh/authorized_keys
+[root@hdp-node-1 ~]# chmod 700 ~/.ssh
+[root@hdp-node-1 ~]#
+[root@hdp-node-1 ~]# chmod 600 ~/.ssh/authorized_keys
+[root@hdp-node-1 ~]#
+
+
+
+
+Generate public and private SSH keys on the Ambari Server host.
+ssh-keygen
+
+Copy the SSH Public Key (id_rsa.pub) to the root account on your target hosts.
+.ssh/id_rsa
+
+.ssh/id_rsa.pub
+
+Add the SSH Public Key to the authorized_keys file on your target hosts.
+cat id_rsa.pub >> authorized_keys
+
+Depending on your version of SSH, you may need to set permissions on the .ssh directory (to 700) and the authorized_keys file in that directory (to 600) on the target hosts.
+chmod 700 ~/.ssh
+
+chmod 600 ~/.ssh/authorized_keys
+
+copy authorizedkeys files to all hosts
+
+ssh is working without password.
+
+selinux is disabled and firewall is off on all nodes and my /etc/hosts file first two lines shows:
+
+
+On the Ambari Server host, stage the appropriate PostgreSQL connector for later deployment.
+
+Download the PostgreSQL JDBC Driver from PostgreSQL.
+
+Confirm that .jar is in the Java share directory.
+
+ls /usr/share/java/postgresql-jdbc.jar
+Change the access mode of the .jar file to 644.
+
+chmod 644 /usr/share/java/postgresql-jdbc.jar
+Execute the following command:
+
+ambari-server setup --jdbc-db=postgres --jdbc-driver=/usr/share/java/postgresql-jdbc.jar
+Create a user for Hive and grant it permissions.
+
+Using the PostgreSQL database admin utility:
+
+echo "CREATE DATABASE <HIVEDATABASE>;" | psql -U postgres
+echo "CREATE USER <HIVEUSER> WITH PASSWORD '<HIVEPASSWORD>';" | psql -U postgres
+echo "GRANT ALL PRIVILEGES ON DATABASE <HIVEDATABASE> TO <HIVEUSER>;" | psql -U postgres
+Where <HIVEUSER> is the Hive user name, <HIVEPASSWORD> is the Hive user password and <HIVEDATABASE> is the Hive database name.
+
+
+echo "CREATE DATABASE ranger;" | sudo -u postgres psql -U postgres
+echo "CREATE USER rangeradmin WITH PASSWORD 'rangeradmin';" | sudo -u postgres psql -U postgres
+echo "GRANT ALL PRIVILEGES ON DATABASE ranger TO rangeradmin;" | sudo -u postgres psql -U postgres
+
+export HADOOP_CLASSPATH=${HADOOP_CLASSPATH}:${JAVA_JDBC_LIBS}:/connector jar pat
+ 
