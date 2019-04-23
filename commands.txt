@@ -1,0 +1,93 @@
+[root@hdp-node-1 ~]# history
+    1  clear
+    2  sudo firewall-cmd --state
+    3  sudo systemctl stop firewalld
+    4  sudo firewall-cmd --state
+    5  file=/etc/ssh/sshd_config
+    6  cp -p $file $file.old && awk ' $1=="PermitRootLogin" {$2="yes"} $1=="PasswordAuthentication" {$2="yes"} $1=="#PubkeyAuthentication" {$1="PubkeyAuthentication"} {print} ' $file.old > $file
+    7  service sshd restart
+    8  vi /etc/sysconfig/selinux
+    9  echo never > /sys/kernel/mm/transparent_hugepage/enabled
+   10  ssh-keygen -t rsa
+   11  ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-1
+   12  ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-2
+   13  ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-3
+   14  ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-4
+   15  ssh-copy-id -i ~/.ssh/id_rsa.pub root@hdp-node-3
+   16  yum install mysql-server
+   17  yum search mysql
+   18  sudo yum install mysql-community-server
+   19  sudo yum update
+   20  yum repolist | grep -i mysql
+   21  wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+   22  yum install wget
+   23  wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+   24  sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
+   25  yum update
+   26  sudo yum install mysql-server
+   27  sudo systemctl start mysqld
+   28  mysqladmin -u root password root
+   29  mysqladmin -u root -p
+   30  mysqladmin -u root
+   31  sudo mysql -u root
+   32  sudo mysql -u root -p
+   33  mysql -V
+   34  mysql -u root -p
+   35  yum install mysql-connector-java*
+   36  yum -y install java-1.8.0-openjdk
+   37  sudo yum install epel-release
+   38  yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo
+   39  yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo
+   40  yum install epel-release
+   41  yum search yum-config-manager
+   42  yum install yum-utils.noarch
+   43  yum -y install ambari-server
+   44  yum repolist
+   45  yum-config-manager --add-repo http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.1.0.0/hdp.repo
+   46  yum-config-manager --add-repo http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.3.0/ambari.repo
+   47  yum repolist
+   48  yum -y install ambari-server
+   49  ambari-server setup
+   50  mysql -u ambari -pambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+   51  ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+   52  ambari-server start
+   53  cat /var/log/ambari-server/ambari-server.log
+   54  mysql -u root -p
+   55  sudo mysql -u root -p
+   56  ambari-server start
+   57  cat /var/log/ambari-server/ambari-server.log
+   58  sudo mysql -u ambari
+   59  sudo mysql -u root -p
+   60  ambari-server start
+   61  cat /var/log/ambari-server/ambari-server.log
+   62  sudo mysql -u ambari -p
+   63  sudo /etc/init.d/mysql restart
+   64  /etc/init.d/mysql restart
+   65  systemctl status mysqld
+   66  systemctl restart mysqld
+   67  ambari-server restart
+   68  cat /var/log/ambari-server/ambari-server.log | grep -i ERROR
+   69  date
+   70  cat /var/log/ambari-server/ambari-server.log
+   71   mysql -u ambari -p ambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+   72   mysql -u ambari -pambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+   73  sudo mysql -u ambari -p
+   74  ambari-server start
+   75  cat /var/log/ambari-server/ambari-server.log
+   76  mysql -u ''ambari'@'hdp-node-1.europe-west2-c.c.sunny-furnace-238414.internal -p ambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+   77  mysql -u 'ambari'@'hdp-node-1.europe-west2-c.c.sunny-furnace-238414.internal' -p ambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+   78  ambari-server setup
+   79  ambari-server start
+   80  cat /var/log/ambari-server/ambari-server.log
+   81  sudo mysql -u ambari -p
+   82  ambari-server start
+   83  cat /var/log/ambari-server/ambari-server.out
+   84  mysql -u root -p ambaridb -h localhost -P 3306
+   85  mysql -u ambari -p ambaridb -h localhost -P 3306
+   86  mysql -u ambari -p ambaridb -h hdp-node-1.europe-west2-c.c.sunny-furnace-238414.internal -P 3306
+   87  ambari-server setup
+   88  ambari-server start
+   89  history
+[root@hdp-node-1 ~]# history >> syed.txt
+[root@hdp-node-1 ~]# ls
+mysql-community-release-el7-5.noarch.rpm  syed.txt
