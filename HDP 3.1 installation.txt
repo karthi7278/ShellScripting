@@ -34,17 +34,12 @@ yum update
 ###Install and configure MySQL server instance
 
 yum install mysql-server
-/etc/init.d/mysqld start
-sudo mysql -u root -p
+sudo systemctl start mysqld
+sudo mysql -u root
 
 CREATE DATABASE ambaridb;
 CREATE DATABASE hivedb;
 CREATE DATABASE ooziedb;
-
-#### Setting up the databases
-mysqladmin -u root -proot create ambaridb
-mysqladmin -u root -proot create hivedb
-mysqladmin -u root -proot create ooziedb
 
 #### Configure users and permission:
 
@@ -145,12 +140,10 @@ yum -y install ambari-server
  Ambari Server 'setup' completed successfully.
 
  mysql -u ambari -p ambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
-mysql -u 'ambari'@'hdp-node-1.europe-west2-c.c.sunny-furnace-238414.internal' -p ambari_password ambaridb <  /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+
  ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
  ambari-server start
 
-
-GRANT ALL PRIVILEGES ON *.* TO 'ambari'@'hdp-node-1.europe-west2-c.c.sunny-furnace-238414.internal' IDENTIFIED BY 'ambari_password' WITH GRANT OPTION;
 
 ###### Create User in hdfs
 su - hdfs
