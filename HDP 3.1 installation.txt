@@ -69,6 +69,24 @@ CREATE USER 'oozie'@'%' IDENTIFIED BY 'oozie_password';
 GRANT ALL PRIVILEGES ON *.* TO 'oozie'@'%';
 FLUSH PRIVILEGES;
 
+###Add below if you ranger as well
+
+CREATE DATABASE RANGERDB;
+USE RANGERDB;
+CREATE USER 'rangerdb'@'localhost' IDENTIFIED BY 'ranger_password';
+GRANT ALL PRIVILEGES ON *.* TO 'rangerdb'@'localhost';
+CREATE USER 'rangerdb'@'%' IDENTIFIED BY 'ranger_password';
+GRANT ALL PRIVILEGES ON *.* TO 'rangerdb'@'%';
+FLUSH PRIVILEGES;
+
+CREATE DATABASE RANGERKMSDB;
+USE RANGERKMSDB;
+CREATE USER 'rangerkms'@'localhost' IDENTIFIED BY 'ranger_kms_password';
+GRANT ALL PRIVILEGES ON *.* TO 'rangerkms'@'localhost';
+CREATE USER 'rangerkms'@'%' IDENTIFIED BY 'ranger_kms_password';
+GRANT ALL PRIVILEGES ON *.* TO 'rangerkms'@'%';
+FLUSH PRIVILEGES;
+
 ### Exit out of MySQL command shell:
 exit;
 
