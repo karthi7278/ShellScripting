@@ -35,6 +35,9 @@ yum update
 
 yum install mysql-server
 sudo systemctl start mysqld
+# Setting mysql root password
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root');
+
 sudo mysql -u root
 
 CREATE DATABASE ambaridb;
