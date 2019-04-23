@@ -149,3 +149,8 @@ yum -y install ambari-server
 su - hdfs
 hadoop fs -mkdir /user/admin
 hadoop fs -chown admin:hadoop /user/admin
+
+Chnage permissions as below on all the servers to avoid issues during servers registration through ambari:
+
+chmod 600 ~/.ssh/authorized_keys
+chmod 700 ~/.ssh
