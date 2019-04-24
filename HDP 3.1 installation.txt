@@ -1,4 +1,7 @@
 ####### Iptables Disable
+Install the package yum install iptables-services before stopping iptables. Use the below command to stop iptables.
+
+systemctl stop iptables
 
 sudo systemctl stop firewalld
 
